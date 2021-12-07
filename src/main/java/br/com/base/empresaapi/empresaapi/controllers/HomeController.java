@@ -1,7 +1,6 @@
 package br.com.base.empresaapi.empresaapi.controllers;
 
 import br.com.base.empresaapi.empresaapi.models.EmpresaModel;
-import br.com.base.empresaapi.empresaapi.models.HomeModel;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -33,7 +32,7 @@ public class HomeController {
         return empresa;
     }
     @PutMapping("/empresas/{id}")
-    public EmpresaModel update(@RequestBody EmpresaModel empresa){
+    public EmpresaModel update(@PathVariable int id,@RequestBody EmpresaModel empresa){
         return empresa;
     }
     @DeleteMapping("/empresas/{id}")
