@@ -13,11 +13,18 @@ ou
 ````
 
 #### Cria o pacote jar
+````
 mvn package
+ou
+./mvnw package
+````
 
 #### Inicia o projeto
+````
 mvn spring-boot:run
-
+ou
+./mvnw spring-boot:run
+````
 
 
 
