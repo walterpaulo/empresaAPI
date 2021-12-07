@@ -7,6 +7,8 @@
 
 #### Limpa dependencias
 mvn clean
+ou
+./mvn
 
 
 #### Cria o pacote jar
