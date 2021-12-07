@@ -6,10 +6,11 @@
 * Mysql;
 
 #### Limpa dependencias
+````
 mvn clean
 ou
-./mvn
-
+./mvnw spring-boot:run
+````
 
 #### Cria o pacote jar
 mvn package
