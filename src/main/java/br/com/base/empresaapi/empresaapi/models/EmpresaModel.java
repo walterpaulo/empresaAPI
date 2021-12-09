@@ -1,5 +1,6 @@
 package br.com.base.empresaapi.empresaapi.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import net.bytebuddy.dynamic.loading.InjectionClassLoader;
 
 import javax.persistence.*;
@@ -20,8 +21,10 @@ public class EmpresaModel {
     private String email;
     @Column(name = "cnpj", length = 200, nullable = false)
     private String cnpj;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:MM:SS")
     @Column(name = "dataCriacao", nullable = false)
     private LocalDateTime dataCriacao = LocalDateTime.now() ;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:MM:SS")
     @Column(name = "dataAtualizacao")
     private LocalDateTime dataAtualizacao;
 
