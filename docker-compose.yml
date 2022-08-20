@@ -1,0 +1,12 @@
+version: '3.3'
+services:
+  mysql:
+    container_name: mysql
+    image: mysql
+    environment:
+      MYSQL_USER: walter
+      MYSQL_PASSWORD: 55fc83866d35d6fcd455ed0f2111d038a8be05e80063bf527dbcc27ce400046d53e457168421da39e6d96d0f22eacde06044b324fc4af7bcb72bd452b9a827c1
+      MYSQL_ROOT_PASSWORD: 55fc83866d35d6fcd455ed0f2111d038a8be05e80063bf527dbcc27ce400046d53e457168421da39e6d96d0f22eacde06044b324fc4af7bcb72bd452b9a827c1
+      MYSQL_DATABASE: omelhordomundo
+    ports:
+      - "3306:3306"
