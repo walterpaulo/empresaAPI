@@ -4,6 +4,7 @@
 * Java 11 <;
 * Spring Boot 2.6;
 * Mysql;
+* Docker
 
 #### Limpa dependencias
 ````
@@ -36,4 +37,18 @@ http://localhost:8080/swagger-ui/index.html
 ````
 http://localhost:8080/v3/api-docs
 ````
+
+#### Bando de Dados
+
+Iniciar
+
+```s
+docker-compose up -d
+```
+
+Desligar
+
+```s
+docker-compose down
+``
 
