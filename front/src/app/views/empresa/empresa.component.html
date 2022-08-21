@@ -1,0 +1,108 @@
+<h2>Cadastro</h2>
+
+<div class="card-container">
+  <form (ngSubmit)="f.form.valid && saveEmpresa(f)" #f="ngForm" novalidate>
+    <div class="form-group mt">
+      <label for="nome">Name:</label>
+      <input
+        [(ngModel)]="empresa.nome"
+        #nome="ngModel"
+        required
+        [ngClass]="{ 'is-invalid': f.submitted && nome.invalid }"
+        type="text"
+        class="form-control"
+        id="nome"
+        placeholder="Digite o nome da empresa"
+        name="nome"
+      />
+    </div>
+
+    <div class="form-group mt">
+      <label for="razaoSocial">Razão Social</label>
+      <input
+        [(ngModel)]="empresa.razaoSocial"
+        #razaoSocial="ngModel"
+        required
+        [ngClass]="{ 'is-invalid': f.submitted && razaoSocial.invalid }"
+        type="text"
+        class="form-control"
+        id="razaoSocial"
+        placeholder="Digite a razão social"
+        name="razaoSocial"
+      />
+    </div>
+
+    <div class="form-group mt">
+      <label for="email">Email</label>
+      <input
+        [(ngModel)]="empresa.email"
+        #email="ngModel"
+        required
+        [ngClass]="{ 'is-invalid': f.submitted && email.invalid }"
+        type="email"
+        class="form-control"
+        id="email"
+        placeholder="Digite o email"
+        name="email"
+      />
+    </div>
+
+    <div class="form-group mt">
+      <label for="cnpj">CNPJ</label>
+      <input
+        [(ngModel)]="empresa.cnpj"
+        #cnpj="ngModel"
+        required
+        [ngClass]="{ 'is-invalid': f.submitted && cnpj.invalid }"
+        type="text"
+        class="form-control"
+        id="cnpj"
+        placeholder="Digite o cnpj"
+        name="cnpj"
+      />
+    </div>
+    <button type="submit" class="btn bg-success bmtb">Submit</button>
+  </form>
+</div>
+<h2>Empresas</h2>
+<div class="card-container">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Nome</th>
+        <th scope="col">Razão social</th>
+        <th scope="col">Email</th>
+        <th scope="col">Data inicial</th>
+        <th scope="col">Última atualização</th>
+        <th scope="col">Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let empresa of empresas">
+        <td>{{ empresa.id }}</td>
+        <td>{{ empresa.nome }}</td>
+        <td>{{ empresa.razaoSocial }}</td>
+        <td>{{ empresa.email }}</td>
+        <td>{{ converterDate(empresa.dataCriacao) }}</td>
+        <td>{{ empresa.dataAtualizacao }}</td>
+        <td>
+          <button
+            type="button"
+            class="btn btn-warning btn-sm"
+            (click)="editarEmpresa(empresa)"
+          >
+            Editar
+          </button>
+          <button
+            type="button"
+            class="btn btn-danger btn-sm ml-1"
+            (click)="excluirEmpresa(empresa)"
+          >
+            Deletar
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
