@@ -61,11 +61,14 @@
         name="cnpj"
       />
     </div>
-    <button type="submit" class="btn bg-success bmtb">Submit</button>
+    <button type="submit" class="btn bg-success bmtb">Salvar</button>
   </form>
 </div>
-<h2>Empresas</h2>
-<div class="card-container">
+<div class="card-container lista">
+  <div *ngIf="messagem" class="massagem alert alert-{{status}}" role="alert">
+    {{messagem}}
+  </div>
+  <h2>Empresas</h2>
   <table class="table table-striped">
     <thead>
       <tr>
@@ -85,18 +88,22 @@
         <td>{{ empresa.razaoSocial }}</td>
         <td>{{ empresa.email }}</td>
         <td>{{ converterDate(empresa.dataCriacao) }}</td>
-        <td>{{ empresa.dataAtualizacao }}</td>
+        <td>
+          <span *ngIf="empresa.dataAtualizacao">{{
+            converterDate(empresa.dataAtualizacao)
+          }}</span>
+        </td>
         <td>
           <button
             type="button"
-            class="btn btn-warning btn-sm"
+            class="btn btn-warning btn-sm mlr"
             (click)="editarEmpresa(empresa)"
           >
             Editar
           </button>
           <button
             type="button"
-            class="btn btn-danger btn-sm ml-1"
+            class="btn btn-danger btn-sm ml-1 mlr"
             (click)="excluirEmpresa(empresa)"
           >
             Deletar

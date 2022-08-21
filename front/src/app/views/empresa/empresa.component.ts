@@ -11,6 +11,8 @@ import { NgForm } from '@angular/forms';
 export class EmpresaComponent implements OnInit {
   empresa = {} as Empresa;
   empresas?: Empresa[];
+  messagem? = '';
+  status? = 'success';
 
   constructor(private empresaService: EmpresaService) {}
 
@@ -27,6 +29,8 @@ export class EmpresaComponent implements OnInit {
   saveEmpresa(form: NgForm) {
     if (this.empresa.id !== undefined) {
       this.empresaService.updateEmpresa(this.empresa).subscribe(() => {
+        this.messagem = 'Aterado com sucesso!';
+        setTimeout(() => (this.messagem = ''), 2000);
         this.cleanForm(form);
       });
     } else {
@@ -38,6 +42,7 @@ export class EmpresaComponent implements OnInit {
 
   excluirEmpresa(empresa: Empresa) {
     this.empresaService.excluirEmpresa(empresa).subscribe(() => {
+      empresa;
       this.getEmpresas();
     });
   }

@@ -3,6 +3,20 @@
   color: white;
   font-weight: 600;
 }
+.mlr{
+  margin: 0 4px;
+}
 .mt{
   margin-top: 5px;
+}
+
+.lista{
+  margin-top: 55px;
+  position: relative;
+}
+
+.massagem{
+  position: absolute;
+  left: 0;
+  top: -60px;
 }
