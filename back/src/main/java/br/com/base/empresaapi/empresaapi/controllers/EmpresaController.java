@@ -51,11 +51,11 @@ public class EmpresaController {
         return ResponseEntity.status(204).build();
     }
     @DeleteMapping("/empresas/{id}")
-    public ResponseEntity<EmpresaModel> delete(@RequestBody EmpresaModel empresa){
-        if (!repo.existsById(empresa.getId())) {
+    public ResponseEntity<EmpresaModel> delete(@PathVariable int id){
+        if (!repo.existsById(id)) {
             return ResponseEntity.status(404).build();
         }
-        repo.deleteById(empresa.getId());
+        repo.deleteById(id);
         return ResponseEntity.status(204).build();
     }
 }
