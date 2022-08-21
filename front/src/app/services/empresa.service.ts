@@ -34,11 +34,13 @@ export class EmpresaService {
       .pipe(retry(2), catchError(this.handleError));
   }
 
-  updateEmpresa(Empresa: Empresa): Observable<Empresa> {
+  updateEmpresa(empresa: Empresa): Observable<Empresa> {
+    empresa.dataCriacao = '';
+    empresa.dataAtualizacao = '';
     return this.httpClient
       .put<Empresa>(
-        environment.apihost + `/empresas` + '/' + Empresa.id,
-        JSON.stringify(Empresa),
+        environment.apihost + `/empresas` + '/' + empresa.id,
+        JSON.stringify(empresa),
         this.httpOptions
       )
       .pipe(retry(1), catchError(this.handleError));
