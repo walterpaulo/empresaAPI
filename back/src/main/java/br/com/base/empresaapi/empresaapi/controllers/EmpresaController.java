@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class EmpresaController {
@@ -43,13 +44,22 @@ public class EmpresaController {
 
 
     @PutMapping("/empresas/{id}")
-    public ResponseEntity<EmpresaModel> update(@PathVariable int id,@RequestBody EmpresaModel empresa){
-        if (!repo.existsById(id)) {
-            return ResponseEntity.status(404).build();
-        }
-        empresa.setId(id);
-        repo.save(empresa);
-        return ResponseEntity.status(204).build();
+    public ResponseEntity<EmpresaModel> update(@PathVariable int id, @RequestBody EmpresaModel empresa, HttpServletResponse response){
+        try {
+        	if (!repo.existsById(id)) {
+        		return ResponseEntity.status(404).build();
+        	}
+        	Optional<EmpresaModel> empresaAtual = repo.findById(id);
+        	empresa.setId(id);
+        	empresa.setDataCriacao(empresaAtual.get().getDataCriacao());
+        	empresa.setDataAtualizacao(empresa.getAtualizado());
+        	repo.save(empresa);
+        	return ResponseEntity.status(204).build();
+			
+		} catch (Exception e) {
+			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+		}	
+        return ResponseEntity.status(204).body(empresa);
     }
     @DeleteMapping("/empresas/{id}")
     public ResponseEntity<EmpresaModel> delete(@PathVariable int id){
@@ -57,6 +67,6 @@ public class EmpresaController {
             return ResponseEntity.status(404).build();
         }
         repo.deleteById(id);
-        return ResponseEntity.status(204).build();
+        return ResponseEntity.status(404).build();
     }
 }
