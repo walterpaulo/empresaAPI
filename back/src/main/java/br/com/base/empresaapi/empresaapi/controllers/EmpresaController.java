@@ -47,6 +47,7 @@ public class EmpresaController {
         if (!repo.existsById(id)) {
             return ResponseEntity.status(404).build();
         }
+        empresa.setId(id);
         repo.save(empresa);
         return ResponseEntity.status(204).build();
     }
