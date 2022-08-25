@@ -1,3 +1,4 @@
+import { EmpresaModule } from './views/empresa/empresa.module';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -10,13 +11,14 @@ import { EmpresaComponent } from './views/empresa/empresa.component';
 @NgModule({
   declarations: [
     AppComponent,
-    EmpresaComponent
+    EmpresaComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    EmpresaModule
   ],
   providers: [],
   bootstrap: [AppComponent]
