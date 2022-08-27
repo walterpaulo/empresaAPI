@@ -1,7 +1,7 @@
 import { EmpresaModule } from './views/empresa/empresa.module';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -15,6 +15,7 @@ import { IMaskModule } from 'angular-imask';
     EmpresaComponent,
   ],
   imports: [
+    ReactiveFormsModule,
     IMaskModule,
     BrowserModule,
     AppRoutingModule,

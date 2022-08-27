@@ -1,7 +1,7 @@
 import { Empresa } from 'src/app/models/empresa';
 import { Component, OnInit } from '@angular/core';
 import { EmpresaService } from 'src/app/services/empresa.service';
-import { NgForm } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-empresa',
@@ -13,11 +13,22 @@ export class EmpresaComponent implements OnInit {
   empresas?: Empresa[];
   messagem? = '';
   status? = 'success';
+  form?: FormGroup;
 
-  constructor(private empresaService: EmpresaService) {}
+  constructor(private empresaService: EmpresaService, private fb: FormBuilder) {}
 
   ngOnInit(): void {
     this.getEmpresas();
+  }
+
+  configForm(){
+    this.form = this.fb.group({
+      id: new FormControl,
+      nome: new FormControl('', Validators.required),
+      razaoSocial: new FormControl('', Validators.required),
+      email: new FormControl('', Validators.required),
+      cnpj: new FormControl('', Validators.required),
+    })
   }
 
   getEmpresas() {
