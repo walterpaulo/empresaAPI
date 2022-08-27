@@ -7,6 +7,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { EmpresaComponent } from './views/empresa/empresa.component';
+import { IMaskModule } from 'angular-imask';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { EmpresaComponent } from './views/empresa/empresa.component';
     EmpresaComponent,
   ],
   imports: [
+    IMaskModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
