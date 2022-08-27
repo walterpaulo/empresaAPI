@@ -67,6 +67,6 @@ public class EmpresaController {
             return ResponseEntity.status(404).build();
         }
         repo.deleteById(id);
-        return ResponseEntity.status(404).build();
+        return ResponseEntity.noContent().build();
     }
 }
