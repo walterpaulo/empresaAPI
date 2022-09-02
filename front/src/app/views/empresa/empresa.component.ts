@@ -1,7 +1,13 @@
 import { Empresa } from 'src/app/models/empresa';
 import { Component, OnInit } from '@angular/core';
 import { EmpresaService } from 'src/app/services/empresa.service';
-import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  NgForm,
+  Validators,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-empresa',
@@ -15,7 +21,10 @@ export class EmpresaComponent implements OnInit {
   status? = 'success';
   form?: FormGroup;
 
-  constructor(private empresaService: EmpresaService, private formBuild: FormBuilder) {}
+  constructor(
+    private empresaService: EmpresaService,
+    private formBuild: FormBuilder
+  ) {}
 
   ngOnInit(): void {
     this.getEmpresas();
@@ -24,24 +33,28 @@ export class EmpresaComponent implements OnInit {
   profileForm = this.formBuild.group({
     nome: ['', Validators.required],
     razaoSocial: ['', Validators.required],
-    email: ['', Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")],
+    email: [
+      '',
+      Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
+    ],
     cnpj: ['', Validators.required],
   });
 
-  enviar(){
-    if (this.empresa.id !== undefined) {
-      this.empresaService.updateEmpresa(this.empresa).subscribe(() => {
-        this.messagem = 'Aterado com sucesso!';
-        setTimeout(() => (this.messagem = ''), 2000);
-        // this.cleanForm(form);
-      });
-    } else {
-      this.empresaService.saveEmpresa(this.empresa).subscribe(() => {
-        // this.cleanForm(form);
-      });
-    }
-    console.warn(this.profileForm.value);
-  }
+  // enviar(){
+  //   let formObj = this.profileForm.getRawValue();
+  //   if (this.empresa.id !== undefined) {
+  //     this.empresaService.updateEmpresa(formObj).subscribe(() => {
+  //       this.messagem = 'Aterado com sucesso!';
+  //       setTimeout(() => (this.messagem = ''), 2000);
+  //     });
+  //     this.cleanForm();
+  //   } else {
+  //     this.empresaService.saveEmpresa(formObj).subscribe(() => {
+  //     });
+  //     this.cleanForm();
+  //   }
+  //   console.warn(this.profileForm.value);
+  // }
 
   getEmpresas() {
     this.empresaService.getEmpresas().subscribe((listempresas: Empresa[]) => {
@@ -49,16 +62,19 @@ export class EmpresaComponent implements OnInit {
     });
   }
 
-  saveEmpresa(form: NgForm) {
+  saveEmpresa() {
+    let formObj = this.profileForm.getRawValue();
     if (this.empresa.id !== undefined) {
-      this.empresaService.updateEmpresa(this.empresa).subscribe(() => {
+      this.empresaService.updateEmpresa(formObj).subscribe(() => {
         this.messagem = 'Aterado com sucesso!';
         setTimeout(() => (this.messagem = ''), 2000);
-        this.cleanForm(form);
+        this.getEmpresas();
+        this.cleanForm();
       });
     } else {
-      this.empresaService.saveEmpresa(this.empresa).subscribe(() => {
-        this.cleanForm(form);
+      this.empresaService.saveEmpresa(formObj).subscribe(() => {
+        this.getEmpresas();
+        this.cleanForm();
       });
     }
   }
@@ -74,10 +90,12 @@ export class EmpresaComponent implements OnInit {
     this.empresa = { ...empresa };
   }
 
-  cleanForm(form: NgForm) {
-    this.getEmpresas();
-    form.resetForm();
-    this.empresa = {} as Empresa;
+  cleanForm() {
+    this.profileForm.get('nome')?.setValue(''),
+      this.profileForm.get('razaoSocial')?.setValue(''),
+      this.profileForm.get('email')?.setValue(''),
+      this.profileForm.get('cnpj')?.setValue(''),
+      (this.empresa = {} as Empresa);
   }
 
   converterDate(data: String): string {
