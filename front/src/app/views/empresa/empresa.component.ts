@@ -64,14 +64,17 @@ export class EmpresaComponent implements OnInit {
 
   saveEmpresa() {
     let formObj = this.profileForm.getRawValue();
+    debugger
     if (this.empresa.id !== undefined) {
-      this.empresaService.updateEmpresa(formObj).subscribe(() => {
+      console.log("saveEmpresa,"+formObj)
+      this.empresaService.updateEmpresa(this.empresa).subscribe(() => {
         this.messagem = 'Aterado com sucesso!';
         setTimeout(() => (this.messagem = ''), 2000);
         this.getEmpresas();
         this.cleanForm();
       });
     } else {
+      console.log(formObj)
       this.empresaService.saveEmpresa(formObj).subscribe(() => {
         this.getEmpresas();
         this.cleanForm();
@@ -87,6 +90,7 @@ export class EmpresaComponent implements OnInit {
   }
 
   editarEmpresa(empresa: Empresa) {
+    console.log(empresa)
     this.empresa = { ...empresa };
   }
 
