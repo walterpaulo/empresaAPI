@@ -1,14 +1,12 @@
 <h2>Cadastro</h2>
 
 <div class="card-container">
-  <form (ngSubmit)="f.form.valid && saveEmpresa(f)" #f="ngForm" novalidate>
+  <form [formGroup]="profileForm" (ngSubmit)="enviar()">
     <div class="form-group mt">
       <label for="nome">Name:</label>
       <input
-        [(ngModel)]="empresa.nome"
-        #nome="ngModel"
-        required
-        [ngClass]="{ 'is-invalid': f.submitted && nome.invalid }"
+        title="Nome"
+        formControlName="nome"
         type="text"
         class="form-control"
         id="nome"
@@ -20,10 +18,8 @@
     <div class="form-group mt">
       <label for="razaoSocial">Razão Social</label>
       <input
-        [(ngModel)]="empresa.razaoSocial"
-        #razaoSocial="ngModel"
-        required
-        [ngClass]="{ 'is-invalid': f.submitted && razaoSocial.invalid }"
+        title="Razão Social"
+        formControlName="razaoSocial"
         type="text"
         class="form-control"
         id="razaoSocial"
@@ -35,10 +31,9 @@
     <div class="form-group mt">
       <label for="email">Email</label>
       <input
-        [(ngModel)]="empresa.email"
-        #email="ngModel"
-        required
-        [ngClass]="{ 'is-invalid': f.submitted && email.invalid }"
+        title="Email"
+        [class.is-invalid] = "profileForm.get('email')?.invalid && profileForm.get('email')?.touched"
+        formControlName="email"
         type="email"
         class="form-control"
         id="email"
@@ -50,10 +45,8 @@
     <div class="form-group mt">
       <label for="cnpj">CNPJ</label>
       <input
-        [(ngModel)]="empresa.cnpj"
-        #cnpj="ngModel"
-        required
-        [ngClass]="{ 'is-invalid': f.submitted && cnpj.invalid }"
+        title="CPF / CNPJ"
+        formControlName="cnpj"
         type="text"
         class="form-control"
         id="cnpj"
@@ -62,7 +55,8 @@
         [imask]="{mask: '00.000.000/0000-00'}"
       />
     </div>
-    <button type="submit" class="btn bg-success bmtb">Salvar</button>
+    <button type="submit" [disabled]="!profileForm.valid" class="btn bg-success bmtb">Salvar</button>
+    <p>Form Status: {{ profileForm.status }}</p>
   </form>
 </div>
 <div class="card-container lista">

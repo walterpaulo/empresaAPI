@@ -15,20 +15,32 @@ export class EmpresaComponent implements OnInit {
   status? = 'success';
   form?: FormGroup;
 
-  constructor(private empresaService: EmpresaService, private fb: FormBuilder) {}
+  constructor(private empresaService: EmpresaService, private formBuild: FormBuilder) {}
 
   ngOnInit(): void {
     this.getEmpresas();
   }
 
-  configForm(){
-    this.form = this.fb.group({
-      id: new FormControl,
-      nome: new FormControl('', Validators.required),
-      razaoSocial: new FormControl('', Validators.required),
-      email: new FormControl('', Validators.required),
-      cnpj: new FormControl('', Validators.required),
-    })
+  profileForm = this.formBuild.group({
+    nome: ['', Validators.required],
+    razaoSocial: ['', Validators.required],
+    email: ['', Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")],
+    cnpj: ['', Validators.required],
+  });
+
+  enviar(){
+    if (this.empresa.id !== undefined) {
+      this.empresaService.updateEmpresa(this.empresa).subscribe(() => {
+        this.messagem = 'Aterado com sucesso!';
+        setTimeout(() => (this.messagem = ''), 2000);
+        // this.cleanForm(form);
+      });
+    } else {
+      this.empresaService.saveEmpresa(this.empresa).subscribe(() => {
+        // this.cleanForm(form);
+      });
+    }
+    console.warn(this.profileForm.value);
   }
 
   getEmpresas() {
