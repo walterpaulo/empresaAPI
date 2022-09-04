@@ -63,19 +63,17 @@ export class EmpresaComponent implements OnInit {
   }
 
   saveEmpresa() {
-    let formObj = this.profileForm.getRawValue();
-    debugger
+    let formObj: Empresa = this.profileForm.getRawValue();
     if (this.empresa.id !== undefined) {
-      console.log("saveEmpresa,"+formObj)
-      this.empresaService.updateEmpresa(this.empresa).subscribe(() => {
-        this.messagem = 'Aterado com sucesso!';
-        setTimeout(() => (this.messagem = ''), 2000);
+      formObj.id = this.empresa.id;
+      this.empresaService.updateEmpresa(formObj).subscribe(() => {
+        this.showMessage('Alterado com sucesso!');
         this.getEmpresas();
         this.cleanForm();
       });
     } else {
-      console.log(formObj)
       this.empresaService.saveEmpresa(formObj).subscribe(() => {
+        this.showMessage('Adicionado com sucesso!');
         this.getEmpresas();
         this.cleanForm();
       });
@@ -84,13 +82,14 @@ export class EmpresaComponent implements OnInit {
 
   excluirEmpresa(empresa: Empresa) {
     this.empresaService.excluirEmpresa(empresa).subscribe(() => {
+      this.showMessage('Excluído com sucesso', 'danger')
       empresa;
       this.getEmpresas();
     });
   }
 
   editarEmpresa(empresa: Empresa) {
-    console.log(empresa)
+    console.log(empresa);
     this.empresa = { ...empresa };
   }
 
@@ -109,5 +108,11 @@ export class EmpresaComponent implements OnInit {
     return (
       dia + '/' + mes + '/' + ano + ' ' + horas + ':' + minutos + ':' + secondos
     );
+  }
+
+  showMessage(messagem: string, status: string = 'success') {
+    this.status = status;
+    this.messagem = messagem;
+    setTimeout(() => (this.messagem = ''), 7000);
   }
 }
