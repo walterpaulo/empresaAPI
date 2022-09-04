@@ -12,7 +12,6 @@ import { IMaskModule } from 'angular-imask';
 @NgModule({
   declarations: [
     AppComponent,
-    EmpresaComponent,
   ],
   imports: [
     ReactiveFormsModule,
@@ -23,6 +22,7 @@ import { IMaskModule } from 'angular-imask';
     FormsModule,
     EmpresaModule
   ],
+  exports: [],
   providers: [],
   bootstrap: [AppComponent]
 })
